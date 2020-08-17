@@ -20,11 +20,8 @@ class ArticleController extends Controller
     public function index(Request $request) : array
     {
         $limit  = $request->query('rows') ? $request->query('rows') : 25;
-        $page   = $request->query('page') 
-                    ? ($request->query('page') == 1 ? 0 : ($request->query('page')*10)) 
-                    : 0;
+        $page   = $request->query('page') ? ($request->query('page') == 1 ? 0 : ($request->query('page')*10)) : 0;
         $biblio = Biblio::getArticles($limit, $page);
-
 
         $response['code']       = '1';
         $response['status']     = 'request success';
@@ -32,7 +29,7 @@ class ArticleController extends Controller
         $response['total_rows'] = $biblio->count();
         
         foreach ($biblio as $value) {
-            $response['items'][] = [
+            $response['data'][] = [
                 'title'          => $value->title,
                 'publish_year'   => $value->publish_year,
                 'image'          => $value->image,
