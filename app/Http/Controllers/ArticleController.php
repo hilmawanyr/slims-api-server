@@ -17,13 +17,22 @@ class ArticleController extends Controller
         
     }
 
-    public function index(int $limit=25, int $page=0) : array
+    public function index(Request $request) : array
     {
-        $_page  = $page === 0 ? 0 : ($page*10);
-        $biblio = Biblio::getArticles($limit, $_page);
+        $limit  = $request->query('rows') ? $request->query('rows') : 25;
+        $page   = $request->query('page') 
+                    ? ($request->query('page') == 1 ? 0 : ($request->query('page')*10)) 
+                    : 0;
+        $biblio = Biblio::getArticles($limit, $page);
 
+
+        $response['code']       = '1';
+        $response['status']     = 'request success';
+        $response['message']    = 'successfully return random article';
+        $response['total_rows'] = $biblio->count();
+        
         foreach ($biblio as $value) {
-            $response[] = [
+            $response['items'][] = [
                 'title'          => $value->title,
                 'publish_year'   => $value->publish_year,
                 'image'          => $value->image,

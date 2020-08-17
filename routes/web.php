@@ -15,4 +15,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/article[/{limit}[/page/{page}]]', 'ArticleController@index');
+$router->get('/articles[/?rows={limit}[&page={page}]]', [
+	'middleware' => ['article','authorization'], 
+	'uses' => 'ArticleController@index'
+]);
