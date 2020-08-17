@@ -19,3 +19,8 @@ $router->get('/articles[/?rows={limit}[&page={page}]]', [
 	'middleware' => ['article','authorization'], 
 	'uses' => 'ArticleController@index'
 ]);
+
+$router->get('/members[/?rows={limit}[&page={page}]]', [
+	'middleware' => ['article','authorization'],
+	'uses' => 'MemberController@index'
+]);
