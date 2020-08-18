@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Response;
 use Closure;
 
-class ArticleMiddleware
+class RowsPageMiddleware
 {
     /**
      * Run the request filter.
@@ -17,7 +17,7 @@ class ArticleMiddleware
     public function handle($request, Closure $next)
     {
         $uri = $request->secure == false ? 'http://' : 'https://';
-        $uri .= $request->getHttpHost().'/articles';
+        $uri .= $request->getHttpHost() .'/'. $request->path();
 
         // URI valid if path is "articles" and without query string inside
         if ($request->fullUrl() == $uri) {

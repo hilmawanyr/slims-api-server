@@ -16,11 +16,21 @@ $router->get('/', function () use ($router) {
 });
 
 $router->get('/articles[/?rows={limit}[&page={page}]]', [
-	'middleware' => ['article','authorization'], 
+	'middleware' => ['rowspage','authorization'], 
 	'uses' => 'ArticleController@index'
 ]);
 
 $router->get('/members[/?rows={limit}[&page={page}]]', [
-	'middleware' => ['article','authorization'],
+	'middleware' => ['rowspage','authorization'],
 	'uses' => 'MemberController@index'
+]);
+
+$router->get('/{id}/members', [
+	'middleware' => 'authorization',
+	'uses' => 'MemberController@getSpesificMember'
+]);
+
+$router->get('/members/{typeID}/type[/?rows={limit}[&page={page}]]', [
+	'middleware' => ['rowspage','authorization'],
+	'uses' => 'MemberController@getMemberByType'
 ]);

@@ -78,7 +78,7 @@ $app->configure('app');
 
 $app->routeMiddleware([
     // 'auth' => App\Http\Middleware\Authenticate::class,
-    'article' => App\Http\Middleware\ArticleMiddleware::class,
+    'rowspage' => App\Http\Middleware\RowsPageMiddleware::class,
     'authorization' => App\Http\Middleware\AuthorizationMiddleware::class,
 ]);
 
